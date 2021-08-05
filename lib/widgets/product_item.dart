@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop/views/product_detail_screen.dart';
 import '../models/product.dart';
 import '../utils/app_routes.dart';
 
