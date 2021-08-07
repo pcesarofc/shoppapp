@@ -1,61 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/providers/cart.dart';
-import 'package:shop/widgets/cart_item_widget.dart';
+
+import '../widgets/cart_item_widget.dart';
+import '../providers/cart.dart';
+import '../providers/orders.dart';
 
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Cart cart = Provider.of(context);
-    final cartItems = cart.item.values.toList();
+    final cartItems = cart.items.values.toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Carrinho"),
+        title: Text('Carrinho'),
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           Card(
             margin: EdgeInsets.all(25),
             child: Padding(
               padding: EdgeInsets.all(10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   Text(
                     'Total',
                     style: TextStyle(fontSize: 20),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  SizedBox(width: 10),
                   Chip(
                     label: Text(
-                      "R\$${cart.totalAmount}",
+                      'R\$${cart.totalAmount}',
                       style: TextStyle(
-                        color: Colors.deepOrange[50],
+                        color: Theme.of(context).primaryTextTheme.title.color,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   Spacer(),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text("COMPRAR"),
+                  FlatButton(
+                    child: Text('COMPRAR'),
+                    textColor: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false)
+                          .addOrder(cart);
+                      cart.clear();
+                    },
                   ),
                 ],
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
               itemCount: cart.itemCount,
               itemBuilder: (ctx, i) => CartItemWidget(cartItems[i]),
             ),
-          )
+          ),
         ],
       ),
     );
