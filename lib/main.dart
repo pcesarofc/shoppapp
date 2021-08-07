@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:shop/providers/cart.dart';
-import 'package:shop/providers/orders.dart';
-import 'package:shop/views/cart_screen.dart';
-import 'package:shop/views/orders_screen.dart';
-import 'package:shop/views/product_detail_screen.dart';
-import 'views/product_overviews_screen.dart';
-import 'package:shop/utils/app_routes.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/providers/products.dart';
+
+import './utils/app_routes.dart';
+
+import './views/products_overview_screen.dart';
+import './views/product_detail_screen.dart';
+import './views/cart_screen.dart';
+import './views/orders_screen.dart';
+
+import './providers/products.dart';
+import './providers/cart.dart';
+import './providers/orders.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,19 +27,23 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => new Orders(),
-        )
+        ),
       ],
       child: MaterialApp(
-          title: 'Minha Loja',
-          theme: ThemeData(
-            primarySwatch: Colors.purple,
-          ),
-          home: ProductOverViewScreen(),
-          routes: {
-            AppRoute.PRODUCT_DETAIL: (ctx) => ProductDetailScreen(),
-            AppRoute.CART: (ctx) => CartScreen(),
-            AppRoute.ORDERS: (ctx) => OrdersScreen(),
-          }),
+        title: 'Minha Loja',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+          accentColor: Colors.deepOrange,
+          fontFamily: 'Lato',
+        ),
+        // home: ProductOverviewScreen(),
+        routes: {
+          AppRoutes.HOME: (ctx) => ProductOverviewScreen(),
+          AppRoutes.PRODUCT_DETAIL: (ctx) => ProductDetailScreen(),
+          AppRoutes.CART: (ctx) => CartScreen(),
+          AppRoutes.ORDERS: (ctx) => OrdersScreen(),
+        },
+      ),
     );
   }
 }

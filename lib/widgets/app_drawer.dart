@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:shop/utils/app_routes.dart';
+import '../utils/app_routes.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
-        children: [
+        children: <Widget>[
           AppBar(
-            title: Text("Bem vindo Usuário"),
+            title: Text('Bem vindo Usuário!'),
             automaticallyImplyLeading: false,
           ),
           Divider(),
           ListTile(
             leading: Icon(Icons.shop),
-            title: Text("Loja"),
+            title: Text('Loja'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
-                AppRoute.HOME,
+                AppRoutes.HOME,
               );
             },
           ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.payment),
-            title: Text("Pedidos"),
+            title: Text('Pedidos'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
-                AppRoute.ORDERS,
+                AppRoutes.ORDERS,
               );
             },
           ),

@@ -51,17 +51,17 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             child: IconButton(
               icon: Icon(Icons.shopping_cart),
               onPressed: () {
-                Navigator.of(context).pushNamed(AppRoute.CART);
+                Navigator.of(context).pushNamed(AppRoutes.CART);
               },
             ),
             builder: (_, cart, child) => Badge(
-              value: cart.itemCount.toString(),
+              value: cart.itemsCount.toString(),
               child: child,
             ),
           )
         ],
       ),
-      //body: ProductGrid(_showFavoriteOnly),
+      body: ProductGrid(_showFavoriteOnly),
       drawer: AppDrawer(),
     );
   }
