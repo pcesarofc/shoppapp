@@ -23,6 +23,21 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     _imageUrlFocusNode.addListener(_updateImage);
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (_formData.isEmpty) {
+      final product = ModalRoute.of(context).settings.arguments as Product;
+      _formData['id'] = product.id;
+      _formData['title'] = product.title;
+      _formData['description'] = product.description;
+      _formData['price'] = product.price;
+      _formData['imageUrl'] = product.imageUrl;
+      _imageUrlController.text = _formData['imageUrl'];
+    }
+  }
+
   // ATUALIZA A IMAGEM AO ENTRAR OU REMOVER A URL E MUDAR DE FOCO.
   void _updateImage() {
     if (isValidImage(_imageUrlController.text)) {
@@ -60,13 +75,19 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     } else {
       _form.currentState.save();
       final newProduct = Product(
+        id: _formData['id'],
         title: _formData['title'],
         description: _formData['description'],
         price: _formData['price'],
         imageUrl: _formData['imageUrl'],
       );
 
-      Provider.of<Products>(context, listen: false).addProduct(newProduct);
+      final products = Provider.of<Products>(context, listen: false);
+      if (_formData['id'] == null) {
+        products.addProduct(newProduct);
+      } else {
+        products.updateProduct(newProduct);
+      }
       Navigator.of(context).pop();
     }
   }
@@ -92,6 +113,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
             children: [
               // FORMFIELD DO TÍTULO.
               TextFormField(
+                initialValue: _formData['title'],
                 decoration: InputDecoration(labelText: 'Título'),
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
@@ -109,6 +131,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
 
               // FORMFIELD DO PREÇO.
               TextFormField(
+                initialValue: _formData['price'].toString(),
                 decoration: InputDecoration(labelText: 'Preço'),
                 textInputAction: TextInputAction.next,
                 focusNode: _priceFocusNode,
@@ -133,6 +156,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
 
               //FORMFIELD DA DESCRIÇÃO.
               TextFormField(
+                initialValue: _formData['description'],
                 decoration: InputDecoration(labelText: 'Descrição'),
                 maxLines: 3,
                 keyboardType: TextInputType.multiline,
