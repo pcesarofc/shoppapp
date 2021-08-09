@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/providers/product.dart';
+import 'package:shop/providers/products.dart';
 import 'package:shop/utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
@@ -29,7 +31,31 @@ class ProductItem extends StatelessWidget {
               color: Theme.of(context).primaryColor,
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Text("Tem certeza?"),
+                    content: Text("Quer excluir o produto?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                        },
+                        child: Text('Não'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(ctx).pop();
+                          Provider.of<Products>(context, listen: false)
+                              .deleteProduct(product.id);
+                        },
+                        child: Text('Sim'),
+                      ),
+                    ],
+                  ),
+                );
+              },
               icon: Icon(
                 Icons.delete,
                 color: Theme.of(context).errorColor,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/cart_item_widget.dart';
 import '../providers/cart.dart';
 import '../providers/orders.dart';
@@ -33,7 +32,8 @@ class CartScreen extends StatelessWidget {
                     label: Text(
                       'R\$${cart.totalAmount}',
                       style: TextStyle(
-                        color: Theme.of(context).primaryTextTheme.headline6.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.headline6.color,
                       ),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,

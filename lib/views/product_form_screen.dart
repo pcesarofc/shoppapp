@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/providers/product.dart';
@@ -37,6 +36,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
         _formData['price'] = product.price;
         _formData['imageUrl'] = product.imageUrl;
         _imageUrlController.text = _formData['imageUrl'];
+      } else {
+        _formData['price'] = '';
       }
     }
   }

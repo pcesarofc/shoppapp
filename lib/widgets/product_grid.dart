@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'product_grid_item.dart';
 import '../providers/products.dart';
 
